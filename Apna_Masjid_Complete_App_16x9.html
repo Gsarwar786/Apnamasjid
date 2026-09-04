@@ -12,7 +12,7 @@ header{background:#0f766e;color:white;padding:18px;position:sticky;top:0;z-index
 input,select{width:100%;padding:12px;border:1px solid #ccd6d2;border-radius:11px;margin:6px 0 12px}
 button{padding:12px 16px;border:0;border-radius:11px;background:#0f766e;color:white;margin:4px;cursor:pointer}
 .secondary{background:#e6f5f2;color:#0f766e}.danger{background:#fee2e2;color:#991b1b}
-.photo{width:100%;aspect-ratio:16/9;height:auto;object-fit:contain;border-radius:14px;background:#dfe9e6;display:block}
+.photo{width:100%;height:auto;max-height:350px;object-fit:cover;border-radius:14px;background:#dfe9e6;display:block}
 .balance{font-size:32px;font-weight:800}.muted{color:#66736f;font-size:13px}
 .nav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid #ddd;display:flex;justify-content:center;z-index:10}
 .nav button{background:white;color:#50605b;font-size:11px;padding:8px}.nav button.active{color:#0f766e;font-weight:bold}
@@ -24,7 +24,7 @@ button{padding:12px 16px;border:0;border-radius:11px;background:#0f766e;color:wh
 <section id="home" class="page active"><div class="hero"><div class="ar">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
 <h1 id="welcome">Apna Masjid</h1><p>Masjid aur madrasa ke liye digital platform.</p><button class="secondary" onclick="show('login')">Login</button></div>
 <div class="card"><b>📢 Advertisement</b><p id="ad">Apna Masjid mein aapka khair-maqdam hai.</p></div>
-<div class="card"><h3>🕌 Masjid / Madrasa</h3><img id="homePhoto" class="photo"><h3 id="masjid">Apna Masjid & Madrasa</h3><p class="muted">📸 Photo display: 16:9 • No part of your uploaded photo is cropped.</p></div>
+<div class="card"><h3>🕌 Masjid / Madrasa</h3><img id="homePhoto" class="photo"><h3 id="masjid">Apna Masjid & Madrasa</h3><p class="muted">📸 Photo display: Fits automatically without distortion.</p></div>
 <div class="grid"><div class="feature">💰 <b>Wallet</b><br><span class="muted">Balance & transactions</span></div>
 <div class="feature">🤲 <b>Monthly Charity</b><br><span class="muted">Monthly setting</span></div>
 <div class="feature">🔐 <b>Email Login</b><br><span class="muted">Secure Access</span></div>
@@ -39,7 +39,7 @@ button{padding:12px 16px;border:0;border-radius:11px;background:#0f766e;color:wh
 <section id="history" class="page"><div class="card"><h2>📜 History</h2><div id="hist"></div></div></section>
 <section id="profile" class="page"><div class="card"><h2>👤 Profile</h2><label>Name</label><input id="pname"><label>Email</label><input id="pemail" type="email"><button onclick="saveProfile()">Save</button><button class="danger" onclick="logout()">Logout</button></div></section>
 <section id="support" class="page"><div class="card"><h2>📞 Contact Support</h2><textarea id="msg" style="width:100%;height:100px;padding:10px" placeholder="Message"></textarea><br><button onclick="alert('Support request demo mein receive hua.')">Send</button></div></section>
-<section id="admin" class="page"><div class="card"><h2>⚙️ Master Admin</h2><label>Masjid/Madrasa Name</label><input id="aname"><label>Advertisement</label><input id="aad"><label>Masjid Photo Upload (any ratio — automatically fits 16:9 without cropping)</label><input type="file" accept="image/*" onchange="photo(event)"><img id="preview" class="photo"><button onclick="saveAdmin()">Save Changes</button><p class="muted">Production version mein admin authentication aur secure database zaroori hoga.</p></div></section>
+<section id="admin" class="page"><div class="card"><h2>⚙️ Master Admin</h2><label>Masjid/Madrasa Name</label><input id="aname"><label>Advertisement</label><input id="aad"><label>Masjid Photo Upload</label><input type="file" accept="image/*" onchange="photo(event)"><img id="preview" class="photo"><button onclick="saveAdmin()">Save Changes</button><p class="muted">Production version mein admin authentication aur secure database zaroori hoga.</p></div></section>
 </main>
 <nav class="nav">
 <button onclick="show('home')">🏠<br>Home</button><button onclick="show('wallet')">💰<br>Wallet</button><button onclick="show('charity')">🤲<br>Charity</button><button onclick="show('history')">📜<br>History</button><button onclick="show('profile')">👤<br>Profile</button><button onclick="show('support')">📞<br>Support</button><button onclick="show('admin')">⚙️<br>Admin</button>
