@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apna Masjid</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f7f6;
+  color:#173b32;
+}
+button,input,select{font:inherit}
+button{
+  border:0;
+  cursor:pointer;
+}
+.header{
+  background:#075e4d;
+  color:white;
+  padding:15px 18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+.logo{
+  font-size:21px;
+  font-weight:bold;
+}
+.lang{
+  background:white;
+  color:#075e4d;
+  border-radius:8px;
+  padding:7px;
+}
+.container{
+  width:min(100%,900px);
+  margin:auto;
+  padding:15px;
+}
+.page{display:none}
+.page.active{display:block}
+.card{
+  background:white;
+  border-radius:16px;
+  padding:18px;
+  margin-bottom:15px;
+  box-shadow:0 3px 15px #00000010;
+}
+.ad{
+  background:linear-gradient(135deg,#075e4d,#0d8068);
+  color:white;
+  min-height:130px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  border-radius:16px;
+  margin-bottom:15px;
+}
+.ad h2{margin:0}
+.masjid-photo{
+  width:100%;
+  aspect-ratio:16/9;
+  object-fit:contain;
+  background:#e8eeee;
+  border-radius:14px;
+  display:block;
+}
+.masjid-name{
+  font-size:25px;
+  font-weight:bold;
+  text-align:center;
+  margin:15px 0 5px;
+}
+.arabic{
+  font-size:25px;
+  text-align:center;
+  direction:rtl;
+  margin:10px;
+}
+.date{
+  text-align:center;
+  color:#667;
+}
+.btn{
+  background:#075e4d;
+  color:white;
+  padding:12px 18px;
+  border-radius:10px;
+  width:100%;
+  margin-top:9px;
+}
+.btn.secondary{
+  background:#e8f1ee;
+  color:#075e4d;
+}
+.btn.danger{background:#a83232}
+.input{
+  width:100%;
+  padding:12px;
+  border:1px solid #ccd8d4;
+  border-radius:9px;
+  margin:6px 0 10px;
+  outline:none;
+}
+.input:focus{border-color:#075e4d}
+.balance{
+  font-size:34px;
+  font-weight:bold;
+  color:#075e4d;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+.stat{
+  background:#f0f6f4;
+  border-radius:12px;
+  padding:14px;
+}
+.stat b{display:block;font-size:20px}
+.nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:white;
+  border-top:1px solid #ddd;
+  display:flex;
+  justify-content:space-around;
+  padding:8px 3px;
+  z-index:30;
+}
+.nav button{
+  background:none;
+  color:#50635e;
+  font-size:12px;
+}
+.nav button span{
+  display:block;
+  font-size:20px;
+}
+.nav button.active{color:#075e4d;font-weight:bold}
+body{padding-bottom:70px}
+.item{
+  padding:12px 0;
+  border-bottom:1px solid #e5e5e5;
+}
+.success{color:#08794e}
+.error{color:#b52c2c}
+.small{font-size:13px;color:#687570}
+.center{text-align:center}
+.hidden{display:none!important}
+.admin{
+  border:2px solid #e4a52a;
+}
+.preview{
+  max-width:100%;
+  border-radius:10px;
+  margin-top:8px;
+}
+footer{
+  text-align:center;
+  padding:20px;
+  color:#71807b;
+}
+@media(max-width:500px){
+  .grid{grid-template-columns:1fr 1fr}
+  .masjid-name{font-size:21px}
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="logo">🕌 Apna Masjid</div>
+  <select id="language" class="lang" onchange="changeLanguage()">
+    <option value="en">English</option>
+    <option value="hi">हिन्दी</option>
+    <option value="ur">اردو</option>
+    <option value="ar">العربية</option>
+  </select>
+</header>
+
+<main class="container">
+
+<!-- HOME -->
+<section id="home" class="page active">
+
+  <div class="ad">
+    <div>
+      <h2>🤲 Support Your Masjid</h2>
+      <p>Donate • Maintain • Support</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img id="homePhoto"
+         class="masjid-photo"
+         src=""
+         alt="Masjid">
+
+    <div id="masjidName" class="masjid-name">
+      Apna Masjid
+    </div>
+
+    <div class="arabic">
+      بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+    </div>
+
+    <div id="todayDate" class="date"></div>
+
+    <button class="btn" onclick="showPage('wallet')">
+      💰 Donate / Wallet
+    </button>
+  </div>
+
+  <div class="card">
+    <h3>🌙 Monthly Charity</h3>
+    <p class="small">
+      Set your monthly charity amount. In this demo it is stored only
+      in your browser.
+    </p>
+    <button class="btn" onclick="showPage('charity')">
+      Manage Monthly Charity
+    </button>
+  </div>
+
+</section>
+
+
+<!-- LOGIN -->
+<section id="login" class="page">
+
+  <div class="card">
+    <h2>🔐 Login</h2>
+
+    <label>Mobile Number</label>
+    <input id="loginMobile"
+           class="input"
+           type="tel"
+           placeholder="Enter mobile number">
+
+    <button class="btn" onclick="sendLoginOTP()">
+      Send OTP
+    </button>
+
+    <div id="loginOtpBox" class="hidden">
+      <p class="small">Demo OTP: <b>123456</b></p>
+
+      <input id="loginOtp"
+             class="input"
+             maxlength="6"
+             placeholder="Enter OTP">
+
+      <button class="btn" onclick="verifyLoginOTP()">
+        Verify OTP
+      </button>
+    </div>
+
+    <button class="btn secondary" onclick="showPage('signup')">
+      Create New Account
+    </button>
+
+    <button class="btn secondary" onclick="showPage('forgot')">
+      Forgot Password
+    </button>
+  </div>
+
+</section>
+
+
+<!-- SIGN UP -->
+<section id="signup" class="page">
+
+  <div class="card">
+    <h2>📝 Create Account</h2>
+
+    <label>Full Name</label>
+    <input id="signupName"
+           class="input"
+           placeholder="Your name">
+
+    <label>Mobile Number</label>
+    <input id="signupMobile"
+           class="input"
+           type="tel"
+           placeholder="Mobile number">
+
+    <label>Email</label>
+    <input id="signupEmail"
+           class="input"
+           type="email"
+           placeholder="Email">
+
+    <button class="btn" onclick="signup()">
+      Create Account
+    </button>
+
+    <p id="signupMessage"></p>
+
+    <button class="btn secondary" onclick="showPage('login')">
+      Already have an account? Login
+    </button>
+  </div>
+
+</section>
+
+
+<!-- FORGOT -->
+<section id="forgot" class="page">
+
+  <div class="card">
+    <h2>🔑 Reset Password</h2>
+
+    <input id="forgotMobile"
+           class="input"
+           placeholder="Mobile number">
+
+    <button class="btn" onclick="forgotOTP()">
+      Send Reset OTP
+    </button>
+
+    <div id="forgotBox" class="hidden">
+
+      <p class="small">Demo OTP: <b>123456</b></p>
+
+      <input id="forgotOtp"
+             class="input"
+             placeholder="OTP"
+             maxlength="6">
+
+      <input id="newPassword"
+             class="input"
+             type="password"
+             placeholder="New password">
+
+      <button class="btn" onclick="resetPassword()">
+        Reset Password
+      </button>
+
+    </div>
+  </div>
+
+</section>
+
+
+<!-- WALLET -->
+<section id="wallet" class="page">
+
+  <div class="card">
+    <h2>💰 My Wallet</h2>
+
+    <div class="balance">
+      ₹<span id="walletBalance">0</span>
+    </div>
+
+    <p class="small">
+      Demo wallet balance
+    </p>
+
+    <button class="btn" onclick="addMoney()">
+      ➕ Add Money
+    </button>
+
+    <button class="btn secondary" onclick="showPage('charity')">
+      🤲 Monthly Charity
+    </button>
+  </div>
+
+  <div class="card">
+    <h3>Quick Donation</h3>
+
+    <div class="grid">
+      <button class="btn" onclick="donate(100)">₹100</button>
+      <button class="btn" onclick="donate(250)">₹250</button>
+      <button class="btn" onclick="donate(500)">₹500</button>
+      <button class="btn" onclick="donate(1000)">₹1000</button>
+    </div>
+
+    <input id="customDonation"
+           class="input"
+           type="number"
+           placeholder="Custom amount">
+
+    <button class="btn" onclick="customDonate()">
+      Donate Custom Amount
+    </button>
+  </div>
+
+  <div class="card">
+    <h3>💳 UPI</h3>
+    <p class="small">
+      Real UPI payment is not connected in this prototype.
+    </p>
+
+    <button class="btn secondary" onclick="demoUPI()">
+      Open Demo UPI
+    </button>
+  </div>
+
+</section>
+
+
+<!-- CHARITY -->
+<section id="charity" class="page">
+
+  <div class="card">
+    <h2>🌙 Monthly Charity</h2>
+
+    <label>Monthly Amount</label>
+
+    <input id="charityAmount"
+           class="input"
+           type="number"
+           placeholder="Example: 100">
+
+    <button class="btn" onclick="saveCharity()">
+      Save Monthly Charity
+    </button>
+
+    <div id="charityStatus"></div>
+
+    <hr>
+
+    <p class="small">
+      Current demo setting:
+    </p>
+
+    <h3>
+      ₹<span id="currentCharity">0</span> / month
+    </h3>
+
+    <p class="small">
+      Automatic real-money deduction requires a secure payment
+      mandate/backend integration.
+    </p>
+  </div>
+
+</section>
+
+
+<!-- HISTORY -->
+<section id="history" class="page">
+
+  <div class="card">
+    <h2>📜 Transaction History</h2>
+
+    <div id="transactions"></div>
+
+  </div>
+
+</section>
+
+
+<!-- PROFILE -->
+<section id="profile" class="page">
+
+  <div class="card">
+    <h2>👤 My Profile</h2>
+
+    <label>Name</label>
+    <input id="profileName"
+           class="input"
+           placeholder="Name">
+
+    <label>Mobile</label>
+    <input id="profileMobile"
+           class="input"
+           placeholder="Mobile">
+
+    <label>Email</label>
+    <input id="profileEmail"
+           class="input"
+           placeholder="Email">
+
+    <button class="btn" onclick="saveProfile()">
+      Save Profile
+    </button>
+
+    <button class="btn danger" onclick="logout()">
+      Logout
+    </button>
+  </div>
+
+</section>
+
+
+<!-- SUPPORT -->
+<section id="support" class="page">
+
+  <div class="card">
+    <h2>📞 Contact Support</h2>
+
+    <p>
+      If you need help with Apna Masjid, contact support.
+    </p>
+
+    <input id="supportName"
+           class="input"
+           placeholder="Your name">
+
+    <input id="supportEmail"
+           class="input"
+           placeholder="Email">
+
+    <textarea id="supportMessage"
+              class="input"
+              rows="5"
+              placeholder="Write your message"></textarea>
+
+    <button class="btn" onclick="sendSupport()">
+      Send Message
+    </button>
+
+    <p id="supportResult"></p>
+  </div>
+
+</section>
+
+
+<!-- MASTER ADMIN -->
+<section id="admin" class="page">
+
+  <div class="card admin">
+
+    <h2>⚙️ Master Admin</h2>
+
+    <p class="small">
+      Demo administrator panel.
+    </p>
+
+    <label>Masjid / Madrasa Name</label>
+
+    <input id="adminName"
+           class="input"
+           placeholder="Masjid name">
+
+    <button class="btn" onclick="adminSaveName()">
+      Save Masjid Name
+    </button>
+
+    <hr>
+
+    <h3>📸 Upload Masjid Photo</h3>
+
+    <p class="small">
+      Any photo ratio can be uploaded. It will be displayed inside
+      a 16:9 frame without cropping.
+    </p>
+
+    <input id="photoInput"
+           class="input"
+           type="file"
+           accept="image/*"
+           onchange="previewPhoto(event)">
+
+    <img id="photoPreview"
+         class="preview hidden">
+
+    <button class="btn" onclick="savePhoto()">
+      Save Photo
+    </button>
+
+    <hr>
+
+    <h3>📢 Advertisement</h3>
+
+    <input id="adminAd"
+           class="input"
+           placeholder="Advertisement text">
+
+    <button class="btn" onclick="saveAd()">
+      Save Advertisement
+    </button>
+
+    <hr>
+
+    <h3>📊 Demo Statistics</h3>
+
+    <div class="grid">
+      <div class="stat">
+        <b id="adminUsers">1</b>
+        Users
+      </div>
+
+      <div class="stat">
+        <b id="adminDonations">0</b>
+        Donations
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<footer>
+  © 2026 Apna Masjid
+  <br>
+  <span class="small">
+    Prototype version — real payment/backend integration required.
+  </span>
+</footer>
+
+</main>
+
+
+<!-- BOTTOM NAV -->
+<nav class="nav">
+
+  <button onclick="showPage('home')" id="navHome">
+    <span>🏠</span>Home
+  </button>
+
+  <button onclick="showPage('wallet')" id="navWallet">
+    <span>💰</span>Wallet
+  </button>
+
+  <button onclick="showPage('history')" id="navHistory">
+    <span>📜</span>History
+  </button>
+
+  <button onclick="showPage('profile')" id="navProfile">
+    <span>👤</span>Profile
+  </button>
+
+  <button onclick="showPage('support')" id="navSupport">
+    <span>📞</span>Support
+  </button>
+
+</nav>
+
+
+<script>
+
+/* =========================
+   DATA
+========================= */
+
+let data = JSON.parse(
+  localStorage.getItem("apnaMasjidData") || "{}"
+);
+
+if(!data.wallet) data.wallet = 0;
+if(!data.charity) data.charity = 0;
+if(!data.transactions) data.transactions = [];
+
+if(!data.masjidName)
+  data.masjidName = "Apna Masjid";
+
+if(!data.ad)
+  data.ad = "🤲 Support Your Masjid";
+
+if(!data.photo)
+  data.photo = "";
+
+if(!data.user)
+  data.user = {
+    name:"",
+    mobile:"",
+    email:""
+  };
+
+function saveData(){
+  localStorage.setItem(
+    "apnaMasjidData",
+    JSON.stringify(data)
+  );
+}
+
+
+/* =========================
+   PAGE SYSTEM
+========================= */
+
+function showPage(page){
+
+  document
+    .querySelectorAll(".page")
+    .forEach(p => p.classList.remove("active"));
+
+  const target = document.getElementById(page);
+
+  if(target)
+    target.classList.add("active");
+
+  document
+    .querySelectorAll(".nav button")
+    .forEach(b => b.classList.remove("active"));
+
+  const nav =
+    document.getElementById(
+      "nav" +
+      page.charAt(0).toUpperCase() +
+      page.slice(1)
+    );
+
+  if(nav)
+    nav.classList.add("active");
+
+  window.scrollTo(0,0);
+
+  updateUI();
+}
+
+
+/* =========================
+   UPDATE UI
+========================= */
+
+function updateUI(){
+
+  document.getElementById("walletBalance")
+    .textContent =
+    data.wallet.toFixed(2);
+
+  document.getElementById("currentCharity")
+    .textContent =
+    data.charity;
+
+  document.getElementById("masjidName")
+    .textContent =
+    data.masjidName;
+
+  document.getElementById("adminName")
+    .value =
+    data.masjidName;
+
+  document.getElementById("adminAd")
+    .value =
+    data.ad;
+
+  if(data.photo){
+
+    document.getElementById("homePhoto")
+      .src = data.photo;
+
+  }else{
+
+    document.getElementById("homePhoto")
+      .src =
+      "data:image/svg+xml;charset=UTF-8," +
+      encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg"
+           width="1280"
+           height="720">
+        <rect width="100%" height="100%"
+              fill="#dfe9e6"/>
+        <text x="50%" y="50%"
+              dominant-baseline="middle"
+              text-anchor="middle"
+              font-size="55"
+              fill="#075e4d">
+          🕌 Apna Masjid
+        </text>
+      </svg>
+      `);
+  }
+
+  document.getElementById("profileName")
+    .value = data.user.name;
+
+  document.getElementById("profileMobile")
+    .value = data.user.mobile;
+
+  document.getElementById("profileEmail")
+    .value = data.user.email;
+
+  document.querySelector(".ad h2")
+    .textContent = data.ad;
+
+  renderTransactions();
+
+  document.getElementById("adminDonations")
+    .textContent =
+    data.transactions.filter(
+      x => x.type === "Donation"
+    ).length;
+}
+
+
+/* =========================
+   DATE
+========================= */
+
+function updateDate(){
+
+  const d = new Date();
+
+  document.getElementById("todayDate")
+    .textContent =
+    d.toLocaleDateString(
+      undefined,
+      {
+        weekday:"long",
+        year:"numeric",
+        month:"long",
+        day:"numeric"
+      }
+    );
+}
+
+
+/* =========================
+   LOGIN OTP
+========================= */
+
+function sendLoginOTP(){
+
+  const mobile =
+    document.getElementById("loginMobile").value.trim();
+
+  if(!mobile){
+    alert("Please enter mobile number.");
+    return;
+  }
+
+  document
+    .getElementById("loginOtpBox")
+    .classList.remove("hidden");
+
+  alert("Demo OTP: 123456");
+}
+
+
+function verifyLoginOTP(){
+
+  const otp =
+    document.getElementById("loginOtp").value.trim();
+
+  if(otp !== "123456"){
+    alert("Wrong OTP.");
+    return;
+  }
+
+  alert("Login successful.");
+  showPage("home");
+}
+
+
+/* =========================
+   SIGNUP
+========================= */
+
+function signup(){
+
+  const name =
+    document.getElementById("signupName").value.trim();
+
+  const mobile =
+    document.getElementById("signupMobile").value.trim();
+
+  const email =
+    document.getElementById("signupEmail").value.trim();
+
+  if(!name || !mobile){
+    document.getElementById("signupMessage")
+      .innerHTML =
+      '<span class="error">Name and mobile are required.</span>';
+    return;
+  }
+
+  data.user = {
+    name:name,
+    mobile:mobile,
+    email:email
+  };
+
+  saveData();
+
+  document.getElementById("signupMessage")
+    .innerHTML =
+    '<span class="success">Account created successfully.</span>';
+
+  setTimeout(
+    () => showPage("home"),
+    800
+  );
+}
+
+
+/* =========================
+   FORGOT PASSWORD
+========================= */
+
+function forgotOTP(){
+
+  const mobile =
+    document.getElementById("forgotMobile").value.trim();
+
+  if(!mobile){
+    alert("Enter mobile number.");
+    return;
+  }
+
+  document
+    .getElementById("forgotBox")
+    .classList.remove("hidden");
+
+  alert("Demo OTP: 123456");
+}
+
+
+function resetPassword(){
+
+  const otp =
+    document.getElementById("forgotOtp").value;
+
+  const password =
+    document.getElementById("newPassword").value;
+
+  if(otp !== "123456"){
+    alert("Wrong OTP.");
+    return;
+  }
+
+  if(password.length < 4){
+    alert("Password must be at least 4 characters.");
+    return;
+  }
+
+  alert("Password reset successfully.");
+  showPage("login");
+}
+
+
+/* =========================
+   WALLET
+========================= */
+
+function addMoney(){
+
+  const amount =
+    prompt("Enter amount to add:");
+
+  const n = Number(amount);
+
+  if(!n || n <= 0){
+    alert("Invalid amount.");
+    return;
+  }
+
+  data.wallet += n;
+
+  data.transactions.unshift({
+    type:"Wallet Top-up",
+    amount:n,
+    date:new Date().toLocaleString()
+  });
+
+  saveData();
+  updateUI();
+
+  alert("Demo wallet top-up successful.");
+}
+
+
+function donate(amount){
+
+  if(data.wallet < amount){
+
+    alert(
+      "Wallet balance is insufficient. " +
+      "Please add money first."
+    );
+
+    return;
+  }
+
+  data.wallet -= amount;
+
+  data.transactions.unshift({
+    type:"Donation",
+    amount:amount,
+    date:new Date().toLocaleString()
+  });
+
+  saveData();
+  updateUI();
+
+  alert(
+    "₹" + amount +
+    " demo donation completed."
+  );
+}
+
+
+function customDonate(){
+
+  const amount =
+    Number(
+      document.getElementById("customDonation").value
+    );
+
+  if(!amount || amount <= 0){
+    alert("Enter valid amount.");
+    return;
+  }
+
+  donate(amount);
+}
+
+
+function demoUPI(){
+
+  alert(
+    "Demo UPI only.\n\n" +
+    "Real UPI payment gateway is not connected yet."
+  );
+}
+
+
+/* =========================
+   CHARITY
+========================= */
+
+function saveCharity(){
+
+  const amount =
+    Number(
+      document.getElementById("charityAmount").value
+    );
+
+  if(!amount || amount <= 0){
+    alert("Enter valid monthly amount.");
+    return;
+  }
+
+  data.charity = amount;
+
+  saveData();
+  updateUI();
+
+  document.getElementById("charityStatus")
+    .innerHTML =
+    '<p class="success">Monthly charity saved successfully.</p>';
+
+}
+
+
+/* =========================
+   TRANSACTIONS
+========================= */
+
+function renderTransactions(){
+
+  const box =
+    document.getElementById("transactions");
+
+  if(!data.transactions.length){
+
+    box.innerHTML =
+      '<p class="small">No transactions yet.</p>';
+
+    return;
+  }
+
+  box.innerHTML =
+    data.transactions
+      .map(t => `
+        <div class="item">
+          <b>${escapeHTML(t.type)}</b>
+          <br>
+          <span>₹${Number(t.amount).toFixed(2)}</span>
+          <br>
+          <span class="small">
+            ${escapeHTML(t.date)}
+          </span>
+        </div>
+      `)
+      .join("");
+}
+
+
+/* =========================
+   PROFILE
+========================= */
+
+function saveProfile(){
+
+  data.user.name =
+    document.getElementById("profileName").value.trim();
+
+  data.user.mobile =
+    document.getElementById("profileMobile").value.trim();
+
+  data.user.email =
+    document.getElementById("profileEmail").value.trim();
+
+  saveData();
+  updateUI();
+
+  alert("Profile saved.");
+}
+
+
+function logout(){
+
+  alert("Logged out from demo.");
+  showPage("home");
+}
+
+
+/* =========================
+   SUPPORT
+=========
